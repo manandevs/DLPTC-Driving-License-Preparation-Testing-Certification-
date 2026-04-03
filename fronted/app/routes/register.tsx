@@ -1,6 +1,6 @@
 import axios from "axios";
 import logo from "../../public/favicon.png";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 import {
   Bar,
   BarChart,
@@ -26,18 +26,22 @@ const chartData = [
 ];
 
 export default function Register() {
+  const navigate = useNavigate();
+
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
-    const formentries = Object.fromEntries(formData)
-    console.log(formentries);
+    const data = Object.fromEntries(formData);
+
     try {
-      const responce = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/auth/register`, formentries)
-      console.log(responce)
-    } catch (error) {
-      console.log(error)
+      await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/auth/register`, data);
+      alert("Registration successful! Please login.");
+      navigate("/login");
+    } catch (error: any) {
+      alert(error.response?.data?.message || "Registration failed");
     }
-  }
+  };
+
   return (
     <main className="min-h-screen bg-[#f3f4f6] px-4 py-8 text-slate-900 flex justify-center items-center">
       <div className="mx-auto grid w-full max-w-6xl overflow-hidden bg-white shadow-xl lg:grid-cols-2">

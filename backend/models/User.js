@@ -32,3 +32,18 @@ const userSchema = new mongoose.Schema({
 
 const User = mongoose.model('User', userSchema);
 module.exports = User;
+
+
+// const userSchema = new mongoose.Schema({
+//   name: String,
+//   email: String,
+//   password: String,
+//   cellphone: String,
+
+//   role: {
+//     type: String,
+//     enum: ['user', 'admin'],
+//     default: 'user'
+//   }
+
+// }, { timestamps: true });
